@@ -1,15 +1,16 @@
-#!/bin/sh
-IMAGES=$(ls ./images/screenshots/*.jpg)
-DIST=./dist/screenshots/
+#/bin/sh
 
-if [ -d "$DIST" ]; then
-    rm -R $DIST
-fi
+function resize_jpegs(){
+    DIST=./dist/$1/
 
-mkdir -p $DIST
+    if [ -d "$DIST" ]; then
+        rm -R $DIST
+    fi
 
-for IMG in $IMAGES
-do
-    convert $IMG -resize 600x400 "$DIST$(basename $IMG)"
-done
+    mkdir -p $DIST
 
+    for IMG in ./images/$1/*.jpg
+    do
+        convert $IMG -resize 600x400 "$DIST$(basename $IMG)"
+    done
+}
